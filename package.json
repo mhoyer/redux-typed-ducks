@@ -1,0 +1,19 @@
+{
+  "name": "typed-ducks",
+  "version": "0.1.0",
+  "description": "Helper for using ducks in conjunction with redux having typing support.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "typeings install",
+    "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
+    "build": "tsc && jasmine && tslint *.ts"
+  },
+  "author": "Marcel Hoyer <m.hoyer@pixelplastic.de>",
+  "license": "ISC",
+  "devDependencies": {
+    "jasmine": "^2.4.1",
+    "tslint": "^3.4.0",
+    "typescript": "^1.7.5",
+    "typings": "^0.6.8"
+  }
+}

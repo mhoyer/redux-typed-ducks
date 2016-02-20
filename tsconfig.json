@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "umd",
+    "moduleResolution": "node",
+    "sourceMap": false,
+    "removeComments": false,
+    "noImplicitAny": false
+  },
+  "files": [
+    "index.ts",
+    "spec/index.spec.ts",
+    "typings/typed-ducks.d.ts",
+    "typings/main.d.ts"
+  ]
+}
