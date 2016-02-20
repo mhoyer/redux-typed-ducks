@@ -9,7 +9,6 @@
   },
   "files": [
     "index.spec.ts",
-    "../typings/typed-ducks.d.ts",
     "../typings/main.d.ts"
   ]
 }

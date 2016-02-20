@@ -11,7 +11,6 @@
     "index.ts",
     "example/basic.ts",
     "example/widgets.ts",
-    "typings/typed-ducks.d.ts",
     "typings/main.d.ts"
   ]
 }

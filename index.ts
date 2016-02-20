@@ -76,3 +76,26 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
             return dispatchedActions;
         }, {});
 }
+
+type Action<Payload> = {
+    type: string;
+    payload?: Payload;
+}
+
+type Duck<State, Payload> = {
+    (payload?: Payload): Action<Payload>,
+    actionType: string,
+    payloadReducer: PayloadReducer<State, Payload>
+};
+
+type Reducer<State> = {
+     (state: State, action: Action<any>): State;
+}
+
+type PayloadReducer<State, Payload> = {
+     (state: State, payload: Payload): State;
+}
+
+type Store = {
+    dispatch(action: Action<any>);
+}
