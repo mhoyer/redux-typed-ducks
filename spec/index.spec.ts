@@ -30,7 +30,7 @@ describe('Creating a duck', () => {
     });
 });
 
-describe('Given some duckes.', () => {
+describe('Given some ducks.', () => {
     let ducks = {
         swim: createDuck('SWIM', replaceReducer),
         dive: createDuck('DIVE', revertReducer),
