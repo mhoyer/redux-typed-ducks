@@ -1,4 +1,4 @@
-import {createDuck, createReducer, createDispatchedActions} from '..';
+import {createDuck, createReducer, createDispatchedActions} from '../index';
 
 const replaceReducer = (state: string, payload: string) => {
     return payload;
@@ -26,7 +26,7 @@ describe('Creating a duck', () => {
     });
 
     it('assigns the payload reducer', () => {
-        expect(ribbit.reducer).toBe(replaceReducer);
+        expect(ribbit.payloadReducer).toBe(replaceReducer);
     });
 });
 

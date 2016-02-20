@@ -3,7 +3,7 @@
  * Use createDispatchedActions() to convert an object literal with ducks 
  * into a set of self-dispatching actions.
  */
-export function createDuck<State, Payload>(type: string, reducer: NestedReducer<State, Payload>): Duck<State, Payload> {
+export function createDuck<State, Payload>(type: string, payloadReducer: PayloadReducer<State, Payload>): Duck<State, Payload> {
     const duck = <any> ((payload: Payload) => {
         return {
             type,
@@ -11,7 +11,7 @@ export function createDuck<State, Payload>(type: string, reducer: NestedReducer<
         };
     });
     duck.actionType = type;
-    duck.reducer = reducer;
+    duck.payloadReducer = payloadReducer;
 
     return duck;
 }
@@ -20,20 +20,18 @@ export function createDuck<State, Payload>(type: string, reducer: NestedReducer<
  * Creates a reducer function from given ducks collection.
  */
 export function createReducer<State>(ducks, initialState = <State>{}): Reducer<State> {
-    let payloadReducers = {};
-
-    // slice the ducks and prepare lookup object 
-    Object.keys(ducks).forEach(k => {
+    // slice the ducks and prepare payload reducers lookup object 
+    const payloadReducers = Object.keys(ducks).reduce((payloadReducers, k) => {
         const duck = <Duck<State, any>> ducks[k];
         const actionType = duck.actionType;
-        const reducer = duck.reducer;
+        const payloadReducer = duck.payloadReducer;
 
         // validate the duck
         if (!(duck instanceof Function)) {
             throw new Error(`Given duck for '${k}' is not a function.`);
         }
 
-        if (!(reducer instanceof Function)) {
+        if (!(payloadReducer instanceof Function)) {
             throw new Error(`Given duck for '${k}' has no valid payload reducer.`);
         }
 
@@ -44,8 +42,9 @@ export function createReducer<State>(ducks, initialState = <State>{}): Reducer<S
         }
 
         // assign payload reducer of duck to payloadReducers using action type as key
-        payloadReducers[actionType] = reducer;
-    });
+        payloadReducers[actionType] = payloadReducer;
+        return payloadReducers;
+    }, {});
 
     return (state: State = initialState, action: Action<any>) => {
         const payloadReducer = payloadReducers[action.type];
@@ -70,12 +69,10 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
         };
     };
 
-    let dispatchedActions = {};
-    Object.keys(ducks)
-        .forEach(k => {
-            const dispatchedActionHandler = createDispatchedActionHandler(ducks[k]);
-            dispatchedActions[k] = dispatchedActionHandler;
-        });
-
-    return <Ducks> dispatchedActions;
+    return <Ducks> Object.keys(ducks)
+        .reduce((dispatchedActions, name) => {
+            const dispatchedActionHandler = createDispatchedActionHandler(ducks[name]);
+            dispatchedActions[name] = dispatchedActionHandler;
+            return dispatchedActions;
+        }, {});
 }

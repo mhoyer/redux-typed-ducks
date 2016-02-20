@@ -7,7 +7,7 @@ declare type Action<Payload> = {
 declare type Duck<State, Payload> = {
     (payload?: Payload): Action<Payload>,
     actionType: string,
-    reducer: PayloadReducer<State, Payload>
+    payloadReducer: PayloadReducer<State, Payload>
 };
 
 declare type Reducer<State> = {
