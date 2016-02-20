@@ -4,7 +4,7 @@
   "description": "Helper for using ducks in conjunction with redux having typing support.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "typeings install",
+    "postinstall": "typings install",
     "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
     "build": "tsc && jasmine && tslint *.ts"
   },
