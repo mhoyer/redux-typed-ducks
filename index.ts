@@ -77,25 +77,25 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
         }, {});
 }
 
-type Action<Payload> = {
+export type Action<Payload> = {
     type: string;
     payload?: Payload;
 }
 
-type Duck<State, Payload> = {
+export type Duck<State, Payload> = {
     (payload?: Payload): Action<Payload>,
     actionType: string,
     payloadReducer: PayloadReducer<State, Payload>
 };
 
-type Reducer<State> = {
+export type Reducer<State> = {
      (state: State, action: Action<any>): State;
 }
 
-type PayloadReducer<State, Payload> = {
+export type PayloadReducer<State, Payload> = {
      (state: State, payload: Payload): State;
 }
 
-type Store = {
+export type Store = {
     dispatch(action: Action<any>);
 }

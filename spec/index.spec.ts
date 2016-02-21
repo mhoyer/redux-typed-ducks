@@ -1,4 +1,4 @@
-import {createDuck, createReducer, createDispatchedActions} from '../index';
+import {Duck, createDuck, createReducer, createDispatchedActions} from '../index';
 
 const replaceReducer = (state: string, payload: string) => {
     return payload;
