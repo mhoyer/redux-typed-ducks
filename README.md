@@ -1,6 +1,6 @@
 # Typed Ducks
 
-Inpired by https://github.com/erikras/ducks-modular-redux I wanted better
+Inspired by https://github.com/erikras/ducks-modular-redux I wanted better
 type support for projects written with typescript using the redux pattern. 
 This project also tries to shrink the boilerplate code even further, e. g. 
 no need for those switch-case statements to map the actions to its reducer 
@@ -127,9 +127,8 @@ actions.replaceDuck('next'); // -> dispatches the 'duck/REPLACE' action
 
 ### Use it with Angular 2 and @ngrx/store
 
-Due to injection capabilities of Angular 2 you might use the results of ```createDispatchedActions()```
-in conjunction with an provider. Thus, you'll have your actions availble in place
-on your components and it's easy to mock them when writing tests.
+Due to injection capabilities of Angular 2 we might use the results of ```createDispatchedActions()```
+in conjunction with a provider. Thus, we'll have our actions available in our components and it's easy to mock them when writing tests.
 
 ## TODO
 A possible example may look like this:
