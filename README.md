@@ -1,4 +1,4 @@
-# Typed Ducks
+# Redux Typed Ducks
 
 Inspired by https://github.com/erikras/ducks-modular-redux I wanted better
 type support for projects written with typescript using the redux pattern. 
@@ -10,7 +10,7 @@ Besides that, the goal was to stay independent of a redux implementation.
 
 ## Install
 
-```npm install typed-ducks```
+```npm install redux-typed-ducks```
 
 ## API
 
@@ -30,7 +30,7 @@ for internal use).
 #### Example
 
 ```javascript
-import {createDuck} from 'typed-ducks';
+import {createDuck} from 'redux-typed-ducks';
 
 const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
 replaceDuck.actionType;     // -> 'duck/REPLACE'
@@ -68,7 +68,7 @@ dispatched action to the correct payload reducer.
 #### Example 
 
 ```javascript
-import {createDuck, createReducer} from 'typed-ducks';
+import {createDuck, createReducer} from 'redux-typed-ducks';
 
 const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
 
@@ -113,7 +113,7 @@ in your actual application components.
 #### Example
 
 ```javascript
-import {createDuck, createDispatchedActions} from 'typed-ducks';
+import {createDuck, createDispatchedActions} from 'redux-typed-ducks';
 
 const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
 

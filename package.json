@@ -1,7 +1,7 @@
 {
-  "name": "typed-ducks",
+  "name": "redux-typed-ducks",
   "version": "0.1.0",
-  "description": "Helper for using ducks in conjunction with redux having typing support.",
+  "description": "Helper for using redux ducks in conjunction with redux having typing support.",
   "main": "index.js",
   "scripts": {
     "postinstall": "echo run 'npm run typings install'",
