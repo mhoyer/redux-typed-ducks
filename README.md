@@ -1,5 +1,10 @@
 # Redux Typed Ducks
 
+[![Build Status](https://travis-ci.org/mhoyer/redux-typed-ducks.svg?branch=master)](https://travis-ci.org/mhoyer/redux-typed-ducks)
+[![npm](https://img.shields.io/npm/v/redux-typed-ducks.svg)](https://www.npmjs.com/package/redux-typed-ducks)
+[![Dependencies](https://david-dm.org/mhoyer/redux-typed-ducks.svg)](https://david-dm.org/mhoyer/redux-typed-ducks)
+[![Development Dependencies](https://david-dm.org/mhoyer/redux-typed-ducks/dev-status.svg)](https://david-dm.org/mhoyer/redux-typed-ducks#info=devDependencies)
+
 Inspired by https://github.com/erikras/ducks-modular-redux I wanted better
 type support for projects written with typescript using the redux pattern. 
 This project also tries to shrink the boilerplate code even further, e. g. 
