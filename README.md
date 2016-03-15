@@ -19,7 +19,7 @@ Besides that, the goal was to stay independent of a redux implementation.
 
 ## API
 
-### ```createDuck(actionType, payloadReducer)```
+### createDuck(actionType, payloadReducer)
 
 ##### Arguments
 
@@ -54,7 +54,7 @@ function replaceReducer(state: string, payload: string) {
 ```
 
 
-### ```createReducer(ducks, [initialState])```
+### createReducer(ducks, [initialState])
 
 At some point we need to create the actual reducer.
 
@@ -96,7 +96,7 @@ const nextState = reducer(prevState, dispatchedAction); // -> 'ribbit'
 ```
 
 
-### ```createDispatchedActions(ducks, store)```
+### createDispatchedActions(ducks, store)
 
 Additionally we can already wire up the ducks with the store 
 to create self-dispating action functions.
