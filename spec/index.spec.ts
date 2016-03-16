@@ -48,7 +48,7 @@ describe('Given some ducks.', () => {
             expect(nextState).toBe('payload');
         });
 
-        it('support actions without payload', () => {
+        it('supports actions without payload', () => {
             const reducer = createReducer(ducks);
 
             const nextState = reducer('prev state', {
@@ -117,7 +117,7 @@ describe('Given some nested ducks.', () => {
             expect(nextState).toBe('payload');
         });
 
-        it('support actions without payload', () => {
+        it('supports actions without payload', () => {
             const reducer = createReducer(ducks);
 
             const nextState = reducer('prev state', {

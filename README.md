@@ -95,6 +95,26 @@ let dispatchedAction = { type: 'duck/REPLACE', payload: 'ribbit' };
 const nextState = reducer(prevState, dispatchedAction); // -> 'ribbit'
 ```
 
+##### Nested ducks
+
+```createReducer()``` also supports object literals where ducks are nested to 
+help with structuring your ducks:
+
+```javascript
+import {createDuck, createReducer} from 'redux-typed-ducks';
+
+const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
+const revertDuck = createDuck('duck/REVERT', revertReducer);
+
+const ducks = {
+    nested: {
+        replace: replaceDuck,
+        revert: revertDuck
+    }
+};
+const reducer = createReducer(ducks, 'initial state');
+```
+
 
 ### createDispatchedActions(ducks, store)
 
@@ -121,12 +141,37 @@ in your actual application components.
 import {createDuck, createDispatchedActions} from 'redux-typed-ducks';
 
 const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
-
+const ducks = {
+    replace: replaceDuck,
+};
 const fakeStore = {dispatch: (action) => { console.log(action); }};
 const actions = createDispatchedActions(ducks, fakeStore);
-actions.replaceDuck('next'); // -> dispatches the 'duck/REPLACE' action 
-                             //    with 'next' as payload. It also returns
-                             //    the generated action object.
+actions.replace('next'); // -> dispatches the 'duck/REPLACE' action 
+                         //    with 'next' as payload. It also returns
+                         //    the generated action object.
+```
+
+##### Nested ducks
+
+```createDispatchedActions()``` also supports object literals where ducks are nested to 
+help with structuring your ducks:
+
+```javascript
+import {createDuck, createDispatchedActions} from 'redux-typed-ducks';
+
+const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
+const revertDuck = createDuck('duck/REVERT', revertReducer);
+
+const ducks = {
+    nested: {
+        replace: replaceDuck,
+        revert: revertDuck
+    }
+};
+const fakeStore = {dispatch: (action) => { console.log(action); }};
+const actions = createDispatchedActions(ducks, fakeStore);
+actions.nested.replace('next');
+actions.nested.revert();
 ```
 
 
