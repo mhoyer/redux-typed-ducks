@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Creates a new duck which is an action creator in a first place.
  * Use createDispatchedActions() to convert an object literal with ducks
@@ -16,13 +17,37 @@ function createDuck(type, payloadReducer) {
 }
 exports.createDuck = createDuck;
 /**
+ * Flattens out all functions of an object structure.
+ */
+function flatMapFunctions(obj) {
+    return Object.keys(obj).reduce(function (functions, key) {
+        var prop = obj[key];
+        if (prop instanceof Function) {
+            functions[key] = prop;
+        }
+        else if (prop instanceof Object) {
+            // merge into accumulator
+            var nestedFunctions_1 = flatMapFunctions(prop);
+            Object.keys(nestedFunctions_1).forEach(function (nestedKey) {
+                functions[key + '_' + nestedKey] = nestedFunctions_1[nestedKey];
+            });
+        }
+        else {
+            throw new Error("Given duck for '" + key + "' is not a function nor object literal.");
+        }
+        return functions;
+    }, {});
+}
+;
+/**
  * Creates a reducer function from given ducks collection.
  */
 function createReducer(ducks, initialState) {
     if (initialState === void 0) { initialState = {}; }
+    var flatDucks = flatMapFunctions(ducks);
     // slice the ducks and prepare payload reducers lookup object 
-    var payloadReducers = Object.keys(ducks).reduce(function (payloadReducers, k) {
-        var duck = ducks[k];
+    var payloadReducers = Object.keys(flatDucks).reduce(function (payloadReducers, k) {
+        var duck = flatDucks[k];
         var actionType = duck.actionType;
         var payloadReducer = duck.payloadReducer;
         // validate the duck
@@ -63,8 +88,14 @@ function createDispatchedActions(ducks, store) {
     };
     return Object.keys(ducks)
         .reduce(function (dispatchedActions, name) {
-        var dispatchedActionHandler = createDispatchedActionHandler(ducks[name]);
-        dispatchedActions[name] = dispatchedActionHandler;
+        var duck = ducks[name];
+        if (duck instanceof Function) {
+            var dispatchedActionHandler = createDispatchedActionHandler(duck);
+            dispatchedActions[name] = dispatchedActionHandler;
+        }
+        else if (duck instanceof Object) {
+            dispatchedActions[name] = createDispatchedActions(duck, store);
+        }
         return dispatchedActions;
     }, {});
 }
