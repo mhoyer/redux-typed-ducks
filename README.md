@@ -97,7 +97,7 @@ const nextState = reducer(prevState, dispatchedAction); // -> 'ribbit'
 
 ##### Nested ducks
 
-```createReducer()``` also supports object literals where ducks are nested to 
+```createReducer()``` also supports object literals where ducks can be nested to 
 help with structuring your ducks:
 
 ```javascript
@@ -153,8 +153,8 @@ actions.replace('next'); // -> dispatches the 'duck/REPLACE' action
 
 ##### Nested ducks
 
-```createDispatchedActions()``` also supports object literals where ducks are nested to 
-help with structuring your ducks:
+```createDispatchedActions()``` also supports object literals where ducks can be nested to 
+help with structuring your actions:
 
 ```javascript
 import {createDuck, createDispatchedActions} from 'redux-typed-ducks';
@@ -180,7 +180,9 @@ actions.nested.revert();
 Due to injection capabilities of Angular 2 we might use the results of ```createDispatchedActions()```
 in conjunction with a provider. Thus, we'll have our actions available in our components and it's easy to mock them when writing tests.
 
-## TODO
+
+#### TODO
+
 A possible example may look like this:
 
 ```javascript
