@@ -8,7 +8,6 @@
     "noImplicitAny": false
   },
   "files": [
-    "index.spec.ts",
-    "../typings/main.d.ts"
+    "index.spec.ts"
   ]
 }
