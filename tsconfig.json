@@ -10,7 +10,6 @@
   "files": [
     "index.ts",
     "example/basic.ts",
-    "example/widgets.ts",
-    "typings/main.d.ts"
+    "example/widgets.ts"
   ]
 }
