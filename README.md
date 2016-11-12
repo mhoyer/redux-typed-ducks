@@ -174,16 +174,8 @@ actions.nested.replace('next');
 actions.nested.revert();
 ```
 
+### Samples
 
-### Use it with Angular 2 and @ngrx/store
+- [Redux Typed Ducks - Counter sample](https://github.com/mhoyer/rtd-counter): A simple React sample that uses redux typed ducks.
+- [ng2-kanban](https://github.com/mhoyer/ng2-kanban): A slightly more complex *Redux Typed Ducks* sample using [@angular](https://github.com/angular/angular) and [@ngrx/store](https://github.com/ngrx/store)
 
-Due to injection capabilities of Angular 2 we might use the results of ```createDispatchedActions()```
-in conjunction with a provider. Thus, we'll have our actions available in our components and it's easy to mock them when writing tests.
-
-
-#### TODO
-
-A possible example may look like this:
-
-```javascript
-```
