@@ -1,6 +1,6 @@
 {
   "name": "@tobias-walle/redux-typed-ducks",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Helper for using redux ducks in conjunction with redux having typing support.",
   "main": "index.js",
   "homepage": "https://github.com/tobiaswalle/redux-typed-ducks",
