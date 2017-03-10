@@ -10,7 +10,9 @@
   },
   "scripts": {
     "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
-    "build": "npm run test && tsc --outDir dist"
+    "clean": "rimraf dist",
+    "build": "npm run test && tsc --outDir dist",
+    "prepublish": "npm run clean && npm run build"
   },
   "author": "Marcel Hoyer <m.hoyer@pixelplastic.de>",
   "license": "ISC",
@@ -19,5 +21,8 @@
     "jasmine": "~2.5.2",
     "tslint": "~4.5.1",
     "typescript": "~2.2.1"
+  },
+  "dependencies": {
+    "rimraf": "^2.6.1"
   }
 }
