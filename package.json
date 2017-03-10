@@ -14,9 +14,9 @@
   },
   "scripts": {
     "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
-    "clean": "rimraf dist",
+    "clean": "rimraf dist tmp",
     "build": "tsc --outDir dist",
-    "prepublish": "npm run clean && npm run build"
+    "prepublish": "npm run clean && npm test && npm run build"
   },
   "author": "Marcel Hoyer <m.hoyer@pixelplastic.de>",
   "license": "ISC",
