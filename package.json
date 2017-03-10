@@ -1,6 +1,6 @@
 {
   "name": "@tobias-walle/redux-typed-ducks",
-  "version": "0.2.4",
+  "version": "0.2.6",
   "description": "Helper for using redux ducks in conjunction with redux having typing support.",
   "main": "dist/index.js",
   "typings": "dist/index",
@@ -16,7 +16,7 @@
     "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
     "clean": "rimraf dist",
     "build": "tsc --outDir dist",
-    "install": "npm run clean && npm run build"
+    "prepublish": "npm run clean && npm run build"
   },
   "author": "Tobias Walle",
   "license": "ISC",
