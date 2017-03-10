@@ -1,8 +1,12 @@
 {
   "name": "redux-typed-ducks",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Helper for using redux ducks in conjunction with redux having typing support.",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "typings": "dist/index",
+  "files": [
+    "dist"
+  ],
   "homepage": "https://github.com/mhoyer/redux-typed-ducks",
   "repository": {
     "type": "git",
@@ -10,14 +14,17 @@
   },
   "scripts": {
     "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
-    "build": "npm run test && tsc --outDir dist"
+    "clean": "rimraf dist",
+    "build": "tsc --outDir dist",
+    "prepublish": "npm run clean && npm run build"
   },
   "author": "Marcel Hoyer <m.hoyer@pixelplastic.de>",
   "license": "ISC",
   "devDependencies": {
     "@types/jasmine": "^2.5.37",
     "jasmine": "~2.5.2",
-    "tslint": "~3.15.1",
-    "typescript": "~2.0.7"
+    "rimraf": "^2.6.1",
+    "tslint": "~4.5.1",
+    "typescript": "~2.2.1"
   }
 }

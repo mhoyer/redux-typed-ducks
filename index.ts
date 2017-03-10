@@ -1,6 +1,6 @@
 /**
  * Creates a new duck which is an action creator in a first place.
- * Use createDispatchedActions() to convert an object literal with ducks 
+ * Use createDispatchedActions() to convert an object literal with ducks
  * into a set of self-dispatching actions.
  */
 export function createDuck<State, Payload>(type: string, payloadReducer: PayloadReducer<State, Payload>): Duck<State, Payload> {
@@ -45,7 +45,7 @@ function flatMapFunctions(obj) {
 export function createReducer<State>(ducks, initialState = <State>{}): Reducer<State> {
     const flatDucks = flatMapFunctions(ducks);
 
-    // slice the ducks and prepare payload reducers lookup object 
+    // slice the ducks and prepare payload reducers lookup object
     const payloadReducers = Object.keys(flatDucks).reduce((payloadReducers, k) => {
         const duck = <Duck<State, any>> flatDucks[k];
         const actionType = duck.actionType;
@@ -83,8 +83,8 @@ export function createReducer<State>(ducks, initialState = <State>{}): Reducer<S
 }
 
 /**
- * Converts a ducks object literal from action creators into self-dispatching actions 
- * by wrapping each duck with store.dispatch(). 
+ * Converts a ducks object literal from action creators into self-dispatching actions
+ * by wrapping each duck with store.dispatch().
  */
 export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Ducks {
     const createDispatchedActionHandler = (origActionHandler) => {
@@ -112,7 +112,7 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
 export type Action<Payload> = {
     type: string;
     payload?: Payload;
-}
+};
 
 export type Duck<State, Payload> = {
     (payload?: Payload): Action<Payload>,
@@ -122,12 +122,12 @@ export type Duck<State, Payload> = {
 
 export type Reducer<State> = {
      (state: State, action: Action<any>): State;
-}
+};
 
 export type PayloadReducer<State, Payload> = {
      (state: State, payload: Payload): State;
-}
+};
 
 export type Store = {
     dispatch(action: Action<any>);
-}
+};
