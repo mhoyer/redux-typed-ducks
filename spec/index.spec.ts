@@ -157,6 +157,12 @@ describe('Given some nested ducks.', () => {
             expect(dispatchedActions[0].payload).toBe('payload');
         });
 
+        it('provides the actionType for each duck', () => {
+            const diveAction = actions.nested.dive;
+
+            expect(diveAction.actionType).toBe('DIVE');
+        })
+
         it('provides each duck action with returning actual action object', () => {
             const action = actions.nested.dive();
 

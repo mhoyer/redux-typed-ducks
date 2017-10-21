@@ -100,6 +100,7 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
             if (duck instanceof Function) {
                 const dispatchedActionHandler = createDispatchedActionHandler(duck);
                 dispatchedActions[name] = dispatchedActionHandler;
+                dispatchedActions[name].actionType = duck.actionType;
             } else if (duck instanceof Object) {
                 dispatchedActions[name] = createDispatchedActions(duck, store);
             }
