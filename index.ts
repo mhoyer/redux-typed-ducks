@@ -38,9 +38,8 @@ function flatMapFunctions(obj) {
     }, {});
 }
 
-
 /**
- * Creates a reducer function from given ducks collection.
+ * Creates a reducer function from given ducks map (object literal).
  */
 export function createReducer<State>(duckMap: DuckMap<State>, initialState = <State>{}): Reducer<State> {
     const flatDucks = flatMapFunctions(duckMap);
@@ -119,9 +118,9 @@ export type DuckMap<State> = {
 };
 
 export type Duck<State, Payload> = {
-    (payload?: Payload): Action<Payload>,
-    actionType: string,
-    payloadReducer: PayloadReducer<State, Payload>
+    (payload?: Payload): Action<Payload>;
+    actionType: string;
+    payloadReducer: PayloadReducer<State, Payload>;
 };
 
 export type Reducer<State> = {

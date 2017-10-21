@@ -31,12 +31,12 @@ describe('Creating a duck', () => {
 });
 
 describe('Given some ducks.', () => {
-    let ducks = {
+    const ducks = {
         swim: createDuck('SWIM', replaceReducer),
         dive: createDuck('DIVE', revertReducer),
     };
 
-    describe('Creating a reducer from ducks collection', () => {
+    describe('Creating a reducer from ducks map', () => {
         it('enables call of nested reducers when invoked with matching action', () => {
             const reducer = createReducer(ducks);
 
@@ -69,7 +69,7 @@ describe('Given some ducks.', () => {
         });
     });
 
-    describe('Creating dispatch actions from ducks collection', () => {
+    describe('Creating dispatch actions from ducks map', () => {
         let dispatchedActions = [];
         const fakeStore = {
             dispatch: (action) => { dispatchedActions.push(action); }
@@ -98,14 +98,14 @@ describe('Given some ducks.', () => {
 });
 
 describe('Given some nested ducks.', () => {
-    let ducks = {
+    const ducks = {
         nested: {
             swim: createDuck('SWIM', replaceReducer),
             dive: createDuck('DIVE', revertReducer),
         }
     };
 
-    describe('Creating a reducer from ducks collection', () => {
+    describe('Creating a reducer from ducks map', () => {
         it('enables call of nested reducers when invoked with matching action', () => {
             const reducer = createReducer(ducks);
 
@@ -138,7 +138,7 @@ describe('Given some nested ducks.', () => {
         });
     });
 
-    describe('Creating dispatch actions from ducks collection', () => {
+    describe('Creating dispatch actions from ducks map', () => {
         let dispatchedActions = [];
         const fakeStore = {
             dispatch: (action) => { dispatchedActions.push(action); }
