@@ -80,6 +80,12 @@ describe('Given some ducks.', () => {
             dispatchedActions = [];
         });
 
+        it('provides the actionType for each duck', () => {
+            const diveAction = actions.dive;
+
+            expect(diveAction.actionType).toBe('DIVE');
+        });
+
         it('calls dispatch function of given store', () => {
             const action = actions.swim('payload');
 
@@ -161,7 +167,7 @@ describe('Given some nested ducks.', () => {
             const diveAction = actions.nested.dive;
 
             expect(diveAction.actionType).toBe('DIVE');
-        })
+        });
 
         it('provides each duck action with returning actual action object', () => {
             const action = actions.nested.dive();

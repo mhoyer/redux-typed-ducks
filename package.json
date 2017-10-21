@@ -13,7 +13,7 @@
     "url": "https://github.com/mhoyer/redux-typed-ducks"
   },
   "scripts": {
-    "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts",
+    "test": "tsc -p spec --outDir tmp && jasmine && tslint *.ts spec/*.ts",
     "clean": "rimraf dist tmp",
     "build": "tsc --outDir dist",
     "prepublish": "npm run clean && npm test && npm run build"
