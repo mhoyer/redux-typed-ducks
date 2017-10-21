@@ -42,8 +42,8 @@ function flatMapFunctions(obj) {
 /**
  * Creates a reducer function from given ducks collection.
  */
-export function createReducer<State>(ducks, initialState = <State>{}): Reducer<State> {
-    const flatDucks = flatMapFunctions(ducks);
+export function createReducer<State>(duckMap: DuckMap<State>, initialState = <State>{}): Reducer<State> {
+    const flatDucks = flatMapFunctions(duckMap);
 
     // slice the ducks and prepare payload reducers lookup object
     const payloadReducers = Object.keys(flatDucks).reduce((payloadReducers, k) => {
@@ -112,6 +112,10 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
 export type Action<Payload> = {
     type: string;
     payload?: Payload;
+};
+
+export type DuckMap<State> = {
+    [key: string]: Duck<State, any> | DuckMap<State>;
 };
 
 export type Duck<State, Payload> = {
