@@ -69,7 +69,7 @@ describe('Given some ducks.', () => {
         });
     });
 
-    describe('Creating dispatch actions from ducks map', () => {
+    describe('Creating dispatch actions from a tree of ducks', () => {
         let dispatchedActions = [];
         const fakeStore = {
             dispatch: (action) => { dispatchedActions.push(action); }
@@ -111,7 +111,7 @@ describe('Given some nested ducks.', () => {
         }
     };
 
-    describe('Creating a reducer from ducks map', () => {
+    describe('Creating a reducer from a tree of ducks', () => {
         it('enables call of nested reducers when invoked with matching action', () => {
             const reducer = createReducer(ducks);
 
@@ -144,7 +144,7 @@ describe('Given some nested ducks.', () => {
         });
     });
 
-    describe('Creating dispatch actions from ducks map', () => {
+    describe('Creating dispatch actions from a tree of ducks', () => {
         let dispatchedActions = [];
         const fakeStore = {
             dispatch: (action) => { dispatchedActions.push(action); }
