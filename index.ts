@@ -1,6 +1,6 @@
 /**
  * Creates a new duck which is an action creator in a first place.
- * Use createDispatchedActions() to convert an object literal with ducks
+ * Use createActionDispatchers() to convert an object literal with ducks
  * into a set of self-dispatching actions.
  */
 export function createDuck<TState, TPayload>(type: string, payloadReducer: PayloadReducer<TState, TPayload>): Duck<TState, TPayload> {
@@ -97,7 +97,7 @@ export function createReducer<TState>(duckTree: DuckTree<TState> | Duck<TState, 
  * Converts a ducks object literal from action creators into self-dispatching actions
  * by wrapping each duck with store.dispatch().
  */
-export function createDispatchedActions<TDucks>(ducks: TDucks, store: Store): TDucks {
+export function createActionDispatchers<TDucks>(ducks: TDucks, store: Store): TDucks {
     const createDispatchedActionHandler = (origActionHandler) => {
         return function() {
             const action = origActionHandler.apply(this, arguments);
@@ -114,11 +114,19 @@ export function createDispatchedActions<TDucks>(ducks: TDucks, store: Store): TD
                 dispatchedActions[name] = dispatchedActionHandler;
                 dispatchedActions[name].actionType = duck.actionType;
             } else if (duck instanceof Object) {
-                dispatchedActions[name] = createDispatchedActions(duck, store);
+                dispatchedActions[name] = createActionDispatchers(duck, store);
             }
 
             return dispatchedActions;
         }, {});
+};
+
+/**
+ * @deprecated renamed to `createActionDispatchers()`.
+ */
+export function createDispatchedActions<TDucks>(ducks: TDucks, store: Store): TDucks {
+    console.info(`Function \`createDispatchedActions()\` is marked OBSOLETE. Use \`createActionDispatchers()\` instead.`);
+    return createActionDispatchers(ducks, store);
 }
 
 export type Action<TPayload> = {

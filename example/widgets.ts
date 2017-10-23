@@ -1,5 +1,5 @@
 // An adopted sample from https://github.com/erikras/ducks-modular-redux#example
-import {createDuck, createReducer, createDispatchedActions} from '../index';
+import {createDuck, createReducer} from '../index';
 
 const widgetDucks = {
     loadWidgets: createDuck('my-app/widgets/LOAD', (state) => {

@@ -1,4 +1,4 @@
-import {createDuck, createReducer, createDispatchedActions} from '../index';
+import {createDuck, createReducer, createActionDispatchers} from '../index';
 
 // Create ducks
 const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
@@ -34,7 +34,7 @@ const nextState = reducer(prevState, dispatchedAction); // -> 'ribbit'
 // Additionally we can already wire up the ducks with the store
 // to create self-dispating action functions.
 const fakeStore = {dispatch: (action) => { console.log(action); }};
-const actions = createDispatchedActions(ducks, fakeStore);
+const actions = createActionDispatchers(ducks, fakeStore);
 actions.replaceDuck('next'); // -> dispatches the 'duck/REPLACE' action
                              //    with 'next' as payload. It also returns
                              //    the generated action object.

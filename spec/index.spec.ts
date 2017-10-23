@@ -1,4 +1,4 @@
-import {Duck, createDuck, createReducer, createDispatchedActions} from '../index';
+import {Duck, createDuck, createReducer, createActionDispatchers} from '../index';
 
 const replaceReducer = (state: string, payload: string) => {
     return payload;
@@ -97,7 +97,7 @@ describe('Given some ducks.', () => {
         const fakeStore = {
             dispatch: (action) => { dispatchedActions.push(action); }
         };
-        const actions = createDispatchedActions(ducks, fakeStore);
+        const actions = createActionDispatchers(ducks, fakeStore);
 
         beforeEach(() => {
             dispatchedActions = [];
@@ -172,7 +172,7 @@ describe('Given some nested ducks.', () => {
         const fakeStore = {
             dispatch: (action) => { dispatchedActions.push(action); }
         };
-        const actions = createDispatchedActions(ducks, fakeStore);
+        const actions = createActionDispatchers(ducks, fakeStore);
 
         beforeEach(() => {
             dispatchedActions = [];
