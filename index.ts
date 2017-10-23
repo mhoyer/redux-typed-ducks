@@ -3,8 +3,8 @@
  * Use createDispatchedActions() to convert an object literal with ducks
  * into a set of self-dispatching actions.
  */
-export function createDuck<State, Payload>(type: string, payloadReducer: PayloadReducer<State, Payload>): Duck<State, Payload> {
-    const duck = <any> ((payload: Payload) => {
+export function createDuck<TState, TPayload>(type: string, payloadReducer: PayloadReducer<TState, TPayload>): Duck<TState, TPayload> {
+    const duck = <any> ((payload: TPayload) => {
         return {
             type,
             payload
@@ -41,12 +41,12 @@ function flatMapFunctions(obj) {
 /**
  * Creates a reducer function from given tree of ducks (object literal).
  */
-export function createReducer<State>(duckTree: DuckTree<State> | Duck<State, any>, initialState = <State>{}): Reducer<State> {
+export function createReducer<TState>(duckTree: DuckTree<TState> | Duck<TState, any>, initialState = <TState>{}): Reducer<TState> {
     const flatDucks = flatMapFunctions(duckTree);
 
     // slice the ducks and prepare payload reducers lookup object
     const payloadReducers = Object.keys(flatDucks).reduce((payloadReducers, k) => {
-        const duck = <Duck<State, any>> flatDucks[k];
+        const duck = <Duck<TState, any>> flatDucks[k];
         const actionType = duck.actionType;
         const payloadReducer = duck.payloadReducer;
 
@@ -70,7 +70,7 @@ export function createReducer<State>(duckTree: DuckTree<State> | Duck<State, any
         return payloadReducers;
     }, {});
 
-    return (state: State = initialState, action: Action<any>) => {
+    return (state: TState = initialState, action: Action<any>) => {
         const payloadReducer = payloadReducers[action.type];
 
         if (payloadReducer) {
@@ -85,7 +85,7 @@ export function createReducer<State>(duckTree: DuckTree<State> | Duck<State, any
  * Converts a ducks object literal from action creators into self-dispatching actions
  * by wrapping each duck with store.dispatch().
  */
-export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Ducks {
+export function createDispatchedActions<TDucks>(ducks: TDucks, store: Store): TDucks {
     const createDispatchedActionHandler = (origActionHandler) => {
         return function() {
             const action = origActionHandler.apply(this, arguments);
@@ -93,7 +93,7 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
         };
     };
 
-    return <Ducks> Object.keys(ducks)
+    return <TDucks> Object.keys(ducks)
         .reduce((dispatchedActions, name) => {
             const duck = ducks[name];
 
@@ -109,27 +109,27 @@ export function createDispatchedActions<Ducks>(ducks: Ducks, store: Store): Duck
         }, {});
 }
 
-export type Action<Payload> = {
+export type Action<TPayload> = {
     type: string;
-    payload?: Payload;
+    payload?: TPayload;
 };
 
-export type DuckTree<State> = {
-    [key: string]: Duck<State, any> | DuckTree<State>;
+export type DuckTree<TState> = {
+    [key: string]: Duck<TState, any> | DuckTree<TState>;
 };
 
-export type Duck<State, Payload> = {
-    (payload?: Payload): Action<Payload>;
+export type Duck<TState, TPayload> = {
+    (payload?: TPayload): Action<TPayload>;
     actionType: string;
-    payloadReducer: PayloadReducer<State, Payload>;
+    payloadReducer: PayloadReducer<TState, TPayload>;
 };
 
-export type Reducer<State> = {
-     (state: State, action: Action<any>): State;
+export type Reducer<TState> = {
+     (state: TState, action: Action<any>): TState;
 };
 
-export type PayloadReducer<State, Payload> = {
-     (state: State, payload: Payload): State;
+export type PayloadReducer<TState, TPayload> = {
+     (state: TState, payload: TPayload): TState;
 };
 
 export type Store = {
