@@ -28,6 +28,29 @@ describe('Creating a duck', () => {
     it('assigns the payload reducer', () => {
         expect(ribbit.payloadReducer).toBe(replaceReducer);
     });
+
+    describe('Creating a reducer from a single duck', () => {
+        it('enables call of the one payload reducers when invoked with matching action', () => {
+            const reducer = createReducer(ribbit);
+
+            const nextState = reducer('prev state', {
+                type: 'RIBBIT',
+                payload: 'payload',
+            });
+
+            expect(nextState).toBe('payload');
+        });
+
+        it('returns previous state when type of action does not match the type of the duck', () => {
+            const reducer = createReducer(ribbit);
+
+            const nextState = reducer('prev state', {
+                type: 'NOMATCH'
+            });
+
+            expect(nextState).toBe('prev state');
+        });
+    });
 });
 
 describe('Given some ducks.', () => {

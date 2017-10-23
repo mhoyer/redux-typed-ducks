@@ -42,6 +42,18 @@ function flatMapFunctions(obj) {
  * Creates a reducer function from given tree of ducks (object literal).
  */
 export function createReducer<TState>(duckTree: DuckTree<TState> | Duck<TState, any>, initialState = <TState>{}): Reducer<TState> {
+    if (duckTree instanceof Function) {
+        const duck = <Duck<TState, any>> duckTree;
+        const actionType = duck.actionType;
+        const payloadReducer = duck.payloadReducer;
+
+        return (state: TState = initialState, action: Action<any>) => {
+            if (actionType !== action.type) return state;
+
+            return payloadReducer(state, action.payload);
+        };
+    }
+
     const flatDucks = flatMapFunctions(duckTree);
 
     // slice the ducks and prepare payload reducers lookup object
