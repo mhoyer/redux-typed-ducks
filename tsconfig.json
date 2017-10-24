@@ -9,8 +9,9 @@
     "noImplicitAny": false
   },
   "files": [
-    "index.ts",
-    "example/basic.ts",
-    "example/widgets.ts"
+    "./index.ts",
+    "./example/basic.ts",
+    "./example/scoped.ts",
+    "./example/widgets.ts"
   ]
 }

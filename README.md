@@ -114,6 +114,78 @@ const ducks = {
 const reducer = createReducer(ducks, 'initial state');
 ```
 
+### createScopedReducers(scopedDucks, scopedInitialStates)
+
+In some scenarios it can make sense to isolate pairs of application
+state and ducks. E. g. the [`ActionReducerMap<T>`](https://github.com/ngrx/platform/blob/master/docs/store/actions.md#action-reducers)
+concept of [@ngrx/store](https://github.com/ngrx).
+
+##### Arguments
+
+ - `scopedDucks` - an object literal holding a tree of ducks created with `createDuck`. The root level properties of that object reflect the scopes.
+ - `scopedInitialStates` - an object literal that represents the initial states for each scope. The root level properties of that object reflect the scopes.
+
+##### Returns
+
+An object literal with the same properties as given `scopedDucks`
+and `scopedInitialStates` parameters. Each property presents the isolated
+reducer function for that particular scope.
+
+
+#### Example
+
+```javascript
+import {createDuck, createScopedReducers} from '../index';
+
+// State and ducks for 'Admin' scope
+type AdminState = { users: string[] };
+const deleteUserDuck = createDuck('admin/DELETE_USER', (state: AdminState, userId: string) => {
+    state.users = state.users.filter(u => u !== userId);
+    return state;
+});
+
+// State and ducks for 'User' scope
+type UserState = { password: string };
+const updatePwdDuck = createDuck('user/UPDATE_PROFILE', (state: UserState, pwd: string) => {
+    state.password = pwd;
+    return state;
+});
+
+// Bringing scoped states and ducks together
+const scopedInitialState = {
+    admin: { users: [] },
+    user: { password: 'topsecret' }
+};
+const scopedDucks = {
+    admin: {
+        deleteUser: deleteUserDuck
+    },
+    user: {
+        updatePwd: updatePwdDuck
+        // ... add more ducks here
+    }
+};
+
+// Creating the scoped reducers
+const scopedReducers = createScopedReducers(scopedDucks, scopedInitialState);
+// scopedReducers then looks like:
+// {
+//     admin: (state: AdminState, action: Action) => { /* reducer-logic */ },
+//     user: (state: UserState, action: Action) => { /* reducer-logic */ },
+// }
+```
+
+Later on, [redux](https://github.com/reactjs/redux) or [@ngrx/store](https://github.com/ngrx/store)
+will execute the reducer like so:
+
+```javascript
+let prevState: AdminState = { users: ['mhoyer'] };
+let dispatchedAction = { type: 'admin/DELETE_USER', payload: 'mhoyer' };
+
+const nextState = scopedReducers.admin(prevState, dispatchedAction); // -> { users: [] }
+```
+
+
 ### createDispatchedActions(ducks, store)
 
 DEPRECATED - renamed to `createActionDispatchers`.

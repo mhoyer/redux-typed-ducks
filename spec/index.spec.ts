@@ -1,4 +1,4 @@
-import {Duck, createDuck, createReducer, createActionDispatchers} from '../index';
+import {Duck, createDuck, createReducer, createActionDispatchers, createScopedReducers} from '../index';
 
 const replaceReducer = (state: string, payload: string) => {
     return payload;
@@ -92,6 +92,53 @@ describe('Given some ducks.', () => {
         });
     });
 
+    describe('Creating a reducer map from a scoped ducks map', () => {
+        it('enables call of nested reducers when invoked with matching action', () => {
+            const initialState = { swim: '', dive: '' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.swim('prev state', {
+                type: 'SWIM',
+                payload: 'payload',
+            });
+
+            expect(nextState).toBe('payload');
+        });
+
+        it('supports actions without payload', () => {
+            const initialState = { swim: '', dive: '' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.dive('prev state', {
+                type: 'DIVE'
+            });
+
+            expect(nextState).toBe('etats verp');
+        });
+
+        it('returns previous state when type of action does not match one of the ducks', () => {
+            const initialState = { swim: '', dive: '' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.swim('prev state', {
+                type: 'NOMATCH'
+            });
+
+            expect(nextState).toBe('prev state');
+        });
+
+        it('returns previous state when type of action was targeting a different scope', () => {
+            const initialState = { swim: '', dive: '' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.swim('prev state', {
+                type: 'DIVE'
+            });
+
+            expect(nextState).toBe('prev state');
+        });
+    });
+
     describe('Creating dispatch actions from a tree of ducks', () => {
         let dispatchedActions = [];
         const fakeStore = {
@@ -160,6 +207,43 @@ describe('Given some nested ducks.', () => {
             const reducer = createReducer(ducks);
 
             const nextState = reducer('prev state', {
+                type: 'NOMATCH'
+            });
+
+            expect(nextState).toBe('prev state');
+        });
+    });
+
+    describe('Creating a reducer map from a scoped ducks map', () => {
+
+        it('enables call of nested reducers when invoked with matching action', () => {
+            const initialState = { nested: 'initial state' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.nested('prev state', {
+                type: 'SWIM',
+                payload: 'payload',
+            });
+
+            expect(nextState).toBe('payload');
+        });
+
+        it('supports actions without payload', () => {
+            const initialState = { nested: 'initial state' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.nested('prev state', {
+                type: 'DIVE'
+            });
+
+            expect(nextState).toBe('etats verp');
+        });
+
+        it('returns previous state when type of action does not match one of the ducks', () => {
+            const initialState = { nested: 'initial state' };
+            const reducer = createScopedReducers(ducks, initialState);
+
+            const nextState = reducer.nested('prev state', {
                 type: 'NOMATCH'
             });
 
