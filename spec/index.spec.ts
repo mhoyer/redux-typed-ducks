@@ -1,4 +1,4 @@
-import {Duck, createDuck, createReducer, createActionDispatchers, createScopedReducers} from '../index';
+import { Action, Duck, createDuck, createReducer, createActionDispatchers, createScopedReducers } from '../index';
 
 const replaceReducer = (state: string, payload: string) => {
     return payload;
@@ -280,7 +280,7 @@ describe('Given some nested ducks.', () => {
             const action = actions.nested.dive();
 
             expect(action.type).toBe('DIVE');
-            expect(action.payload).toBeUndefined();
+            expect((action as Action<any>).payload).toBeUndefined();
         });
     });
 });
