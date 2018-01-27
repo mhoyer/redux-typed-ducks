@@ -1,7 +1,7 @@
-import { Action, Duck, DuckTree } from './createDuck';
+import { BaseAction, Action, Duck, DuckTree } from './createDuck';
 
 export type Reducer<TState> = {
-    (state: TState, action: Action<any>): TState;
+    (state: TState, action: BaseAction | Action<any>): TState;
 };
 
 /**
@@ -29,9 +29,9 @@ function flatMapFunctions(obj) {
 /**
  * Creates a reducer function from given tree of ducks (object literal).
  */
-export function createReducer<TState>(duckTree: DuckTree<TState> | Duck<TState, any>, initialState = <TState>{}): Reducer<TState> {
+export function createReducer<TState>(duckTree: DuckTree<TState> | Duck<TState>, initialState = <TState>{}): Reducer<TState> {
     if (duckTree instanceof Function) {
-        const duck = <Duck<TState, any>> duckTree;
+        const duck = duckTree as Duck<TState>;
         const actionType = duck.actionType;
         const payloadReducer = duck.payloadReducer;
 
@@ -46,7 +46,7 @@ export function createReducer<TState>(duckTree: DuckTree<TState> | Duck<TState, 
 
     // slice the ducks and prepare payload reducers lookup object
     const payloadReducers = Object.keys(flatDucks).reduce((payloadReducers, k) => {
-        const duck = <Duck<TState, any>> flatDucks[k];
+        const duck = flatDucks[k] as Duck<TState>;
         const actionType = duck.actionType;
         const payloadReducer = duck.payloadReducer;
 
