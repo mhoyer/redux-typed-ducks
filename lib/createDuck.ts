@@ -13,6 +13,11 @@ export interface Duck<TState, TPayload = any> {
     (payload?: TPayload): Action<TPayload>;
     actionType: string;
     payloadReducer: PayloadReducer<TState, TPayload>;
+    /**
+     * This variable is never used.
+     * It is provided to allow for example "type MyAction = typeof myDuck.ActionTypeDef;"
+     */
+    ActionTypeDef: Action<TPayload>;
 }
 
 export interface DuckWithoutPayload<TState> extends Duck<TState> {
