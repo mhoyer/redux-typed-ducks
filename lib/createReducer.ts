@@ -1,7 +1,7 @@
 import { Action, Duck, DuckTree } from './createDuck';
 
 export type Reducer<TState> = {
-    (state: TState, action: Action<any>): TState;
+    (state: TState | undefined, action: Action<any>): TState;
 };
 
 /**
