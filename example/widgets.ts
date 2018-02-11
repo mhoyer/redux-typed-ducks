@@ -16,4 +16,4 @@ const widgetDucks = {
     }),
 };
 
-export default createReducer(widgetDucks, {});
+createReducer(widgetDucks, {});

@@ -2,9 +2,9 @@ import {createDuck, createReducer, createActionDispatchers} from '../index';
 
 // Create ducks
 const replaceDuck = createDuck('duck/REPLACE', replaceReducer);
-const revertDuck = createDuck('duck/REVERT', replaceReducer);
+const revertDuck = createDuck('duck/REVERT', revertReducer);
 
-// A duck is an action creator, but also has meta fields assigned.
+// A duck is an action creator, but also has meta properties assigned.
 replaceDuck.actionType;     // -> 'duck/REPLACE'
 replaceDuck.payloadReducer; // -> replaceReducer()
 replaceDuck('ribbit');      // -> { type:'duck/REPLACE', payload:'ribbit' }
@@ -14,7 +14,12 @@ replaceDuck('ribbit');      // -> { type:'duck/REPLACE', payload:'ribbit' }
 function replaceReducer(state: string, payload: string) {
     const nextState = payload;
     return nextState;
-};
+}
+
+function revertReducer(state: string) {
+    const nextState = state.split('').reverse().join('');
+    return nextState;
+}
 
 
 // At some point we need to create the actual reducer.
