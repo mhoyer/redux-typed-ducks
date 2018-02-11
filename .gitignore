@@ -1,6 +1,7 @@
+.idea/
+.vscode/
+dist/
 node_modules/
+
 *.js
-npm-debug.log
-.idea
-dist
-yarn-error.log
+*.log

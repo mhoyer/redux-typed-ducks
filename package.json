@@ -21,10 +21,10 @@
   "author": "Marcel Hoyer <m.hoyer@pixelplastic.de>",
   "license": "ISC",
   "devDependencies": {
-    "@types/jasmine": "~2.6.0",
-    "jasmine": "~2.8.0",
+    "@types/jasmine": "^2.8.6",
+    "jasmine": "^3.0.0",
     "rimraf": "^2.6.2",
-    "tslint": "~5.7.0",
-    "typescript": "~2.5.3"
+    "tslint": "^5.9.1",
+    "typescript": "^2.7.1"
   }
 }
