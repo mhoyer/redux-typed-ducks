@@ -1,7 +1,7 @@
 import { Action } from './createDuck';
 
 export type Store = {
-    dispatch(action: Action<any>) : any;
+    dispatch(action: Action<any>): any;
 };
 
  /**
