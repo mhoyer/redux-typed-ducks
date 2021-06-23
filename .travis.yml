@@ -1,7 +1,7 @@
 language: node_js
 node_js:
-  - "4"
-  - "5"
+  - "15"
+  - "16"
 script:
   - npm run test
 branches:
