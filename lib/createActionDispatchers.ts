@@ -8,7 +8,7 @@ export type Store = {
  * Converts a tree of ducks into a tree of self-dispatching actions
  * by wrapping each duck with store.dispatch().
  */
-export function createActionDispatchers<TDuckTree>(ducks: TDuckTree, store: Store): TDuckTree {
+export function createActionDispatchers<TDuckTree extends object>(ducks: TDuckTree, store: Store): TDuckTree {
     const createDispatchedActionHandler = (origActionHandler) => {
         return function() {
             const action = origActionHandler.apply(this, arguments);
@@ -35,7 +35,7 @@ export function createActionDispatchers<TDuckTree>(ducks: TDuckTree, store: Stor
 /**
  * @deprecated renamed to `createActionDispatchers()`.
  */
-export function createDispatchedActions<TDuckTree>(ducks: TDuckTree, store: Store): TDuckTree {
+export function createDispatchedActions<TDuckTree extends object>(ducks: TDuckTree, store: Store): TDuckTree {
     console.info(`Function \`createDispatchedActions()\` is marked OBSOLETE. Use \`createActionDispatchers()\` instead.`);
     return createActionDispatchers(ducks, store);
 }
